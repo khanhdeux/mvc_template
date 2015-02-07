@@ -1,0 +1,54 @@
+CREATE TABLE `categories` (
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(150) NOT NULL,
+  PRIMARY KEY (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ 
+CREATE TABLE `articles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `intro` text NOT NULL,
+  `article` text NOT NULL,
+  `date` datetime NOT NULL,
+  `status` enum('Y','N') NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_articles_categories` (`category`),
+  CONSTRAINT `FK_articles_categories` FOREIGN KEY (`category`) REFERENCES `categories` (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+______
+
+CREATE TABLE Films
+(  
+    id INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY(id),   
+    Title VARCHAR(255)
+),  
+
+CREATE TABLE Genres
+(  
+    id INT NOT NULL AUTO_INCREMENT,   
+    PRIMARY KEY(id),  
+    Name VARCHAR(255)
+),
+
+CREATE TABLE Films_Genres
+(
+    film_id INT NOT NULL,  
+    genre_id INT NOT NULL,  
+    PRIMARY KEY (film_id, genre_id),  
+    FOREIGN KEY (film_id) REFERENCES Films(id) ON UPDATE CASCADE,  
+    FOREIGN KEY (genre_id) REFERENCES Genres(id) ON UPDATE CASCADE
+)  
+
+Inserting a new record in Films_Genres
+
+INSERT INTO Films (Title) VALUES ('Title1');
+SET @film_id = LAST_INSERT_ID();
+
+INSERT INTO Genres (Name) VALUES ('Genre1');
+SET @genre_id = LAST_INSERT_ID();
+
+INSERT INTO Films_Genres (film_id, genre_id) VALUES(@film_id, @genre_id);
