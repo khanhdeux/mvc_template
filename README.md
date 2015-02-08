@@ -31,6 +31,7 @@ RewriteRule ^(.*)$ index.php?load=$1 [PT,L]
 
 /********* Reference *********/
 http://salopek.eu/content/28/create-a-simple-php-mvc-framework
+https://daveismyname.com/creating-a-blog-from-scratch-with-php-bp
 
 /********* commit to github *******/
 echo "# mvc_template" >> README.md

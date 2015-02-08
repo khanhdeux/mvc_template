@@ -14,10 +14,8 @@
       <link rel="stylesheet" type="text/css" href="/mvc_template/views/css/style.css">
     </head>    
     <body>
-        <div class="container-fluid">
-            
-            <?php include HOME . DS . 'includes' . DS . 'menu.inc.php'; ?>
-
+        <?php include HOME . DS . 'includes' . DS . 'menu.inc.php'; ?>        
+        <div class="container-fluid">                        
             <h1>Posts</h1>
 
             <?php 

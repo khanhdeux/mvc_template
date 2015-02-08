@@ -13,10 +13,8 @@
       <link rel="stylesheet" type="text/css" href="/mvc_template/views/css/style.css">      
     </head>    
     <body>
-        <div class="container-fluid">
-            
-            <?php include HOME . DS . 'includes' . DS . 'menu.inc.php'; ?>
-
+        <?php include HOME . DS . 'includes' . DS . 'menu.inc.php'; ?>
+        <div class="container-fluid">                        
             <article>
                 <header>
                     <h1><?php echo $post['title'] ?></h1>
