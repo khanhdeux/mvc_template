@@ -190,5 +190,144 @@ class AdminController extends Controller {
             echo "Application error:" . $e->getMessage();
         }
     }
+    
+    public function adduser() {
+
+        if (!isset($_SESSION['isAdminLoggedin']) || !$_SESSION['isAdminLoggedin']) {
+            header('Location: /mvc_template/login/index');
+        }
+
+        try {
+            $this->_view->set('title', 'Add User');
+            return $this->_view->output();
+        } catch (Exception $e) {
+            echo "Application error:" . $e->getMessage();
+        }
+    }
+
+    public function submituser() {
+        if (!isset($_POST['newUserSubmit'])) {
+            header('Location: /mvc_template/adduser/index');
+        }
+
+        $errors = array();
+        $check = true;
+
+        $username = isset($_POST['username']) ? trim(htmlspecialchars($_POST['username'])) : NULL;
+        $password = isset($_POST['password']) ? trim(htmlspecialchars($_POST['password'])) : NULL;
+
+
+        if (empty($username)) {
+            $check = false;
+            array_push($errors, "Username is required!");
+        }
+
+        if (empty($password)) {
+            $check = false;
+            array_push($errors, "Password is required!");
+        }
+
+        if (!$check) {
+            $this->_setView('adduser');
+            $this->_view->set('title', 'Invalid form data!');
+            $this->_view->set('errors', $errors);
+            $this->_view->set('formData', self::_htmlSpecialCharsArray($_POST));
+            return $this->_view->output();
+        }
+
+        try {
+            $newPost = new AdminModel();
+            $newPost->setUserName($username);
+            $newPost->setPassword($password);
+            $newPost->addUser();
+            header('Location: /mvc_template/admin/users');
+        } catch (Exception $e) {
+            $this->_setView('adduser');
+            $this->_view->set('title', 'There was an error saving the data!');
+            $this->_view->set('formData', self::_htmlSpecialCharsArray($_POST));
+            $this->_view->set('saveError', $e->getMessage());
+        }
+
+        return $this->_view->output();
+    }
+
+    public function edituser($id) {
+
+        if (!isset($_SESSION['isAdminLoggedin']) || !$_SESSION['isAdminLoggedin']) {
+            header('Location: /mvc_template/login/index');
+        }
+
+        try {
+            $user = $this->_model->getUserByID($id);
+            $this->_view->set('title', 'Edit User');            
+            $this->_view->set('user', self::_htmlSpecialCharsArray($user));
+            return $this->_view->output();
+        } catch (Exception $e) {
+            echo "Application error:" . $e->getMessage();
+        }
+    }
+    
+    public function submitedituser($id) {
+        
+        if (!isset($_POST['editUserSubmit'])) {
+            header('Location: /mvc_template/admin/users');
+        }
+        
+        $errors = array();
+        $check = true;
+
+        $username = isset($_POST['username']) ? trim(htmlspecialchars($_POST['username'])) : NULL;
+        $password = isset($_POST['password']) ? trim(htmlspecialchars($_POST['password'])) : NULL;
+
+
+        if (empty($username)) {
+            $check = false;
+            array_push($errors, "Username is required!");
+        }
+
+        if (empty($password)) {
+            $check = false;
+            array_push($errors, "Password is required!");
+        }
+
+        if (!$check) {
+            $user = $this->_model->getUserByID($id);
+            $this->_setView('edituser');
+            $this->_view->set('title', 'Invalid form data!');
+            $this->_view->set('errors', $errors);
+            $this->_view->set('user', self::_htmlSpecialCharsArray($user));
+            return $this->_view->output();
+        }
+
+        try {
+            $editUser = new AdminModel();
+            $editUser->setUserName($username);
+            $editUser->setPassword($password);
+            $editUser->updateUserByID($id);
+            header('Location: /mvc_template/admin/users');
+        } catch (Exception $e) {
+            $this->_setView('edituser');
+            $this->_view->set('title', 'There was an error saving the data!');
+            $this->_view->set('formData', self::_htmlSpecialCharsArray($_POST));
+            $this->_view->set('saveError', $e->getMessage());
+        }
+
+        return $this->_view->output();
+    }    
+
+    public function deleteuser($id) {
+
+        if (!isset($_SESSION['isAdminLoggedin']) || !$_SESSION['isAdminLoggedin']) {
+            header('Location: /mvc_template/login/index');
+        }
+
+        try {
+            $this->_view->set('title', 'Edit Post');
+            $this->_model->deleteUser($id);
+            header('Location: /mvc_template/admin/users');
+        } catch (Exception $e) {
+            echo "Application error:" . $e->getMessage();
+        }
+    }    
 
 }

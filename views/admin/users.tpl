@@ -27,7 +27,7 @@
                 foreach ($users as $u): ?>
                 <tr>
                   <td><?php echo $u['username']; ?></td>
-                  <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                  <td><a href="/mvc_template/admin/edituser/<?php echo $u['id']; ?>">Edit</a> | <a href="/mvc_template/admin/deleteuser/<?php echo $u['id']; ?>">Delete</a></td>
                 </tr>
             <?php 
                 endforeach;
@@ -35,7 +35,7 @@
             <?php endif; ?>
             </tbody>
           </table>
-            <a href="/" class="btn btn-primary btn-block">Add</a>   
+            <a href="/mvc_template/admin/adduser" class="btn btn-primary btn-block">Add</a>   
         </div>        
 
     </body>

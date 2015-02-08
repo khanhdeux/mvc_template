@@ -89,5 +89,53 @@ class AdminModel extends Model {
         }
         return $users;
     }
+    
+    public function addUser() {
+        $sql = "INSERT INTO users 
+                    (username, password)
+                VALUES 
+                    (?, ?)";
+
+        $data = array(
+            $this->_userName,
+            md5($this->_password),
+        );
+
+        $sth = $this->_db->prepare($sql);
+        return $sth->execute($data);
+    }
+
+    public function updateUserByID($id) {
+        if ($id) {
+            $sql = "UPDATE users AS a SET a.username = ?, a.password = ? WHERE a.id= ?";
+            
+            $data = array(
+                $this->_userName,
+                md5($this->_password),
+                $id
+            );
+            
+            $sth = $this->_db->prepare($sql);
+            return $sth->execute($data);
+        }
+    }
+    
+    public function getUserByID($id) {
+        $sql = "SELECT a.id,a.username,a.password FROM users AS a WHERE a.id= ?";
+        $this->_setSql($sql);
+        $user = $this->getRow(array($id));
+        if (empty($user)) {
+            return false;
+        }
+        return $user;
+    }       
+
+    public function deleteUser($id) {
+        if ($id) {
+            $sql = "DELETE FROM users WHERE id = ?";
+            $sth = $this->_db->prepare($sql);
+            return $sth->execute(array($id));
+        }
+    }    
 
 }
