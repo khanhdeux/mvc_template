@@ -1,7 +1,7 @@
 <?php
 
 class BlogModel extends Model {
-
+    
     public function getPosts() {
         $sql = "SELECT a.id,a.title,a.description FROM posts AS a";
         $this->_setSql($sql);
@@ -21,5 +21,31 @@ class BlogModel extends Model {
         }
         return $post;
     }    
+    
+    public function addCommentToPostID($comment,$id) {
+        $sql = "INSERT INTO comments 
+                    (comment, post_id, user_id)
+                VALUES 
+                    (?, ?, ?)";
 
+        $data = array(
+            $comment,
+            $id,
+            $_SESSION['userID'],
+        );
+
+        $sth = $this->_db->prepare($sql);
+        return $sth->execute($data);
+    }   
+    
+    public function getCommentsByPostID($id) {
+        $sql = "SELECT c.comment,u.username FROM comments AS c INNER JOIN users AS u ON c.user_id = u.id WHERE c.post_id = ?";
+        $this->_setSql($sql);
+        $posts = $this->getAll(array($id));
+        if (empty($posts)) {
+            return false;
+        }
+        return $posts;
+    }       
+    
 }

@@ -56,8 +56,10 @@ class LoginController extends Controller {
                 $_SESSION['isAdminLoggedin'] = true;
                 header('Location: /mvc_template/admin/index');
             } else {
+                $user = $this->_model->authUser($userName, $password);                
                 $_SESSION['isUserLoggedin'] = true;
-                header('Location: /mvc_template/user/index');
+                $_SESSION['userID'] = $user['id'];
+                header('Location: /mvc_template/');
             }
         } catch (Exception $e) {
             $this->_setView('index');

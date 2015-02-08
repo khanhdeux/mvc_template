@@ -16,8 +16,11 @@
 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <!--<li><a href="/mvc_template/signup/index"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
-        <li><a href="/mvc_template/login/index"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+         <?php if(!isset($_SESSION['userID'])): ?> 
+          <li><a href="/mvc_template/login/index"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+         <?php else: ?>
+          <li><a href="/mvc_template/blog/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          <?php endif; ?>
       </ul>
     </div>
   </div>
