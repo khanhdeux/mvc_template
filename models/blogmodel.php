@@ -1,53 +1,25 @@
 <?php
- 
-class NewsModel extends Model
-{
-    public function getNews()
-    {
-        $sql = "SELECT
-                    a.id,
-                    a.title,
-                    a.intro,
-                    DATE_FORMAT(a.date, '%d.%m.%Y.') as date,
-                    c.category_name
-                FROM 
-                    articles a
-                INNER JOIN 
-                    categories AS c ON a.category = c.category_id 
-                ORDER BY a.date DESC";
-         
+
+class BlogModel extends Model {
+
+    public function getPosts() {
+        $sql = "SELECT a.id,a.title,a.description FROM posts AS a";
         $this->_setSql($sql);
-        $articles = $this->getAll();
-         
-        if (empty($articles))
-        {
+        $posts = $this->getAll();
+        if (empty($posts)) {
             return false;
         }
-         
-        return $articles;
+        return $posts;
     }
-     
-    public function getArticleById($id)
-    {
-        $sql = "SELECT
-                    a.title,
-                    a.article,
-                    DATE_FORMAT(a.date, '%d.%m.%Y.') as date,
-                    c.category_name 
-                FROM 
-                    articles a
-                INNER JOIN categories AS c ON a.category = c.category_id 
-                WHERE 
-                    a.id = ?";
-         
+    
+    public function getPostByID($id) {
+        $sql = "SELECT a.id,a.title,a.description FROM posts AS a WHERE a.id = ?";
         $this->_setSql($sql);
-        $articleDetails = $this->getRow(array($id));
-         
-        if (empty($articleDetails))
-        {
+        $post = $this->getRow(array($id));
+        if (empty($post)) {
             return false;
         }
-         
-        return $articleDetails;
-    }
+        return $post;
+    }    
+
 }

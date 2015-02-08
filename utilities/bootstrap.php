@@ -1,5 +1,5 @@
 <?php
-$controller = "news";
+$controller = "blog";
 $action = "index";
 $query = null;
  
@@ -19,6 +19,7 @@ if (isset($_GET['load']))
     {
         $query = $params[2];
     }
+    
 }
  
 $modelName = $controller;

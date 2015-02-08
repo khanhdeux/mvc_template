@@ -2,57 +2,44 @@
  
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <title><?php echo $title; ?></title>
-    </head>
+      <title><?php echo $title; ?></title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+            
+      <script type="text/javascript" src="/mvc_template/views/javascript/main.js"></script>      
+      <link rel="stylesheet" type="text/css" href="/mvc_template/views/css/style.css">
+    </head>    
     <body>
-     
-        <?php include HOME . DS . 'includes' . DS . 'menu.inc.php'; ?>
-         
-        <h1><?php echo $title; ?></h1>
-         
-        <?php 
-        if (isset($errors)) 
-        {
-            echo '<ul>';
-            foreach ($errors as $e)
-            {
-                echo '<li>' . $e . '</li>';
-            }
-            echo '</ul>';
-        } 
-         
-        if (isset($saveError))
-        {
-            echo "<h2>Error saving data. Please try again.</h2>" . $saveError;
-        }
-        
-        ?>
-         
-        <form action="/mvc_template/contact/save" method="post">
-             
-            <p>
-                <label for="first_name">First Name:</label>
-                <input value="<?php if(isset($formData)) echo $formData['first_name']; ?>" type="text" id="first_name" name="first_name" />
-            </p>
-             
-            <p>
-                <label for="last_name">Last Name:</label>
-                <input value="<?php if(isset($formData)) echo $formData['last_name']; ?>" type="text" id="last_name" name="last_name" />
-            </p>
-             
-            <p>
-                <label for="email">* E-mail:</label>
-                <input value="<?php if(isset($formData)) echo $formData['email']; ?>" type="text" id="email" name="email" />
-            </p>
-             
-            <p>
-                <label for="message">* Message:</label>
-                <textarea name="message" id="message" rows="5" cols="50"><?php if(isset($formData)) echo $formData['message']; ?></textarea>
-            </p>
-             
-            <input type="submit" name="contactFormSubmit" value="Send" />
-        </form>
-         
+        <div class="container-fluid">
+            
+            <?php include HOME . DS . 'includes' . DS . 'menu.inc.php'; ?>
+
+            <h1>Posts</h1>
+
+            <?php 
+                if ($posts):
+                foreach ($posts as $p): ?>
+
+                <article>
+                    <header>
+                        <h1><a href="/mvc_template/blog/detail/<?php echo $p['id']; ?>"><?php echo $p['title']; ?></a></h1>
+                    </header>
+                    <p><?php echo $p['description']; ?></p>
+                    <p><a href="/mvc_template/blog/detail/<?php echo $p['id']; ?>">Continue reading</a></p>
+                    <hr/>
+                </article>
+            <?php 
+                endforeach;
+                else: ?>
+
+            <h1>Welcome!</h1>
+            <p>We currently do not have any posts.</p>
+
+            <?php endif; ?>            
+        </div>              
     </body>
 </html>
