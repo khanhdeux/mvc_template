@@ -3,11 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/models/blogmodel.php</file>
             <file>file:/Applications/MAMP/htdocs/mvc_template/controllers/blogcontroller.php</file>
-            <file>file:/Applications/MAMP/htdocs/mvc_template/views/blog/index.tpl</file>
-            <file>file:/Applications/MAMP/htdocs/mvc_template/views/javascript/main.js</file>
-            <file>file:/Applications/MAMP/htdocs/mvc_template/views/css/style.css</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/controllers/admincontroller.php</file>
             <file>file:/Applications/MAMP/htdocs/mvc_template/views/blog/detail.tpl</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/views/admin/users.tpl</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/models/adminmodel.php</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/controllers/logincontroller.php</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/views/admin/edituser.tpl</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/includes/menu.inc.php</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/views/blog/index.tpl</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/views/admin/addpost.tpl</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/views/admin/adduser.tpl</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/views/admin/editpost.tpl</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/views/admin/index.tpl</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/views/login/index.tpl</file>
+            <file>file:/Applications/MAMP/htdocs/mvc_template/sql.txt</file>
         </group>
     </open-files>
 </project-private>
