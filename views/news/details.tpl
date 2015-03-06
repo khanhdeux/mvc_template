@@ -7,7 +7,7 @@
     </head>
     <body>
      
-        <?php include HOME . DS . 'includes' . DS . 'menu.inc.php'; ?>
+        <?php include HOME .DS .'views'.  DS . 'includes' . DS . 'menu.inc.php'; ?>
          
         <article>
             <header>

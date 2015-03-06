@@ -12,7 +12,7 @@
 
     </head>   
     <body>
-        <?php include HOME . DS . 'includes' . DS . 'admin_menu.inc.php'; ?>    
+        <?php include HOME .DS .'views'.  DS . 'includes' . DS . 'admin_menu.inc.php'; ?>    
         <div class="container">
             <table class="table table-condensed">
                 <thead>

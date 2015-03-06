@@ -1,6 +1,6 @@
 <?php
  
-class Model 
+class Model implements iModel
 {
     protected $_db;
     protected $_sql;
