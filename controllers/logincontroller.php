@@ -14,7 +14,7 @@ class LoginController extends Controller {
 
     public function submit() {
         if (!isset($_POST['loginFormSubmit'])) {
-            header('Location: /login/index');
+            header('Location: /login');
         }
 
         $errors = array();

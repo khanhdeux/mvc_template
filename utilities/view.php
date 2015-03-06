@@ -35,3 +35,8 @@ class View
         echo $output;
     }
 }
+
+//$view = new View('../views/simpletemplate.tpl');
+//$view->set('title','This is the title');
+//$view->set('greeting','Hello World');
+//$view->output();

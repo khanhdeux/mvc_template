@@ -11,8 +11,8 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="/mvc_template/blog/index">Blog</a></li>           
-        <!--<li><a href="/mvc_template/news/index">News</a></li>-->
-        <!--<li><a href="/mvc_template/contact/index">Contact</a></li>-->
+        <li><a href="/mvc_template/news/index">News</a></li>
+        <li><a href="/mvc_template/contact/index">Contact</a></li>
 
       </ul>
       <ul class="nav navbar-nav navbar-right">

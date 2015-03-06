@@ -12,7 +12,7 @@
     <body>
         <div class="container-fluid">
             
-            <?php include HOME . DS . 'includes' . DS . 'menu.inc.php'; ?>
+            <?php include HOME .DS .'views'.  DS . 'includes' . DS . 'menu.inc.php'; ?> 
 
             <h1>News article</h1>
 
