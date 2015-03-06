@@ -2,14 +2,11 @@
  
 class Db
 {
-    /**
-     *
-     * @var PDO
-     */
+    /* @var $db PDO */
     private static $db;
-     
+    
     public static function init()
-    {
+    {        
         if (!self::$db)
         {
             try {
