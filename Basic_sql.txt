@@ -1,0 +1,98 @@
+// Create datebase
+CREATE DATABASE db_test 
+
+// Create a normal table t1
+CREATE TABLE t1
+(
+   t1_id int(10) NOT NULL AUTO_INCREMENT,
+   t1_name VARCHAR(150) NOT NULL,
+   t1_intro TEXT,
+   t1_date DATETIME,
+   t1_status enum('Y','N'),
+   t1_default VARCHAR(100) NOT NULL DEFAULT 'N',
+   PRIMARY KEY (t1_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+// Create a constraint table t2: t1 - t2 : one - many (id)
+CREATE TABLE t2
+(
+   t2_id int(10) NOT NULL AUTO_INCREMENT,
+   t2_name VARCHAR(150) NOT NULL,
+   t1_id int(10) NOT NULL,
+   PRIMARY KEY (t2_id),
+   CONSTRAINT FK_t2_t1 FOREIGN KEY (t1_id) REFERENCES t1(t1_id)
+   ON UPDATE CASCADE
+   ON DELETE RESTRICT	   
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+// Create a constraint table t3: t1 - t3: many - many
+CREATE TABLE t3
+(
+   t3_id int(10) NOT NULL AUTO_INCREMENT,
+   t3_name VARCHAR(150) NOT NULL,
+   PRIMARY KEY (t3_id)	
+      
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS t1_t3
+(
+   t1_id int(10) NOT NULL,
+   t3_id int(10) NOT NULL,
+   PRIMARY KEY (t1_id,t3_id),
+   CONSTRAINT FK_t1_t3 FOREIGN KEY (t3_id) REFERENCES t3(t3_id) ON DELETE CASCADE ON UPDATE RESTRICT,
+   CONSTRAINT FK_t3_t1 FOREIGN KEY (t1_id) REFERENCES t1(t1_id) ON DELETE CASCADE ON UPDATE RESTRICT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/** ON UPDATE & ON DELETE EXPLANATION **/
+
+CREATE TABLE COMPANY (
+     company_id INT NOT NULL,
+     company_name VARCHAR(50),
+     PRIMARY KEY (company_id)
+) ENGINE=INNODB;;
+CREATE TABLE USER (user_id INT, user_name VARCHAR(50), 
+     company_id INT,
+     INDEX company_id_idx (company_id),
+     FOREIGN KEY (company_id) REFERENCES COMPANY (company_id) ON...
+) ENGINE=INNODB;
+
+Let's look at the ON UPDATE clause:
+
+ON UPDATE RESTRICT : the default : if you try to update a company_id in table COMPANY the engine will reject the operation if one USER at least links on this company.
+ON UPDATE NO ACTION : same as RESTRICT.
+ON UPDATE CASCADE : the best one usually : if you update a company_id in a row of table COMPANY the engine will update it accordingly on all USER rows referencing this COMPANY (but no triggers activated on USER table, warning). The engine will track the changes for you, it's good.
+ON UPDATE SET NULL : if you update a company_id in a row of table COMPANY the engine will set related USERs company_id to NULL (should be available in USER company_id field). I cannot see any interesting thing to do with that on an update, but I may be wrong.
+And now on the ON DELETE side:
+
+ON DELETE RESTRICT : the default : if you try to delete a company_id Id in table COMPANY the engine will reject the operation if one USER at least links on this company, can save your life.
+ON DELETE NO ACTION : same as RESTRICT
+ON DELETE CASCADE : dangerous : if you delete a company row in table COMPANY the engine will delete as well the related USERs. This is dangerous but can be used de make automatic cleanups on secondary tables (so it can be something you want, but quite certainly not for a COMPANY<->USER example)
+ON DELETE SET NULL : * handful* : if you delete a COMPANY row the related USERs will automatically have the relationship to NULL. If Null is your value for users with no company this can be a good behaviour, for example maybe you need to keep the users in your application, as authors of some content, but removing the company is not a problem for you.
+usually my default is: ON DELETE RESTRICT ON UPDATE CASCADE. with some ON DELETE CASCADE for track tables (logs--not all logs--, things like that) and ON DELETE SET NULL when the master table is a 'simple attribute' for the table containing the foreign key, like a JOB table for the USER table.
+
+———————————
+- On delete cascade: > It will delete all the child records when parent record is deleted, 
+  so that there will be no child record when parent is deleted.
+- On update cascade: > It will update the child records parent_id when parent record id that change.In rare case we use on update cascade
+eg:- suppose your parent id is 4 digit and due to expansion later on you need change it to 10 digit. In that case, ON UPDATE CASCADE would allow you to change the primary key value and any tables that have foreign key references to the value will be changed accordingly.
+
+/** END **/
+
+// Insert data into table
+INSERT INTO t1(t1_name,t1_intro,t1_date, t1_status, t1_default) VALUES ('name','intro',Now(),'Y','Default');
+
+INSERT INTO t2(t2_name,t1_id) VALUES ('t2_name',2);
+
+// Select Inner join t1 - t2 with t1_id
+
+SELECT a.t1_id,a.t1_name,a.t1_intro,DATE_FORMAT(a.t1_date,'%W. %h:%m:%s %d.%m.%Y') as date,a.t1_status,a.t1_default FROM t1 as a INNER JOIN t2 as b ON a.t1_id = b.t1_id ORDER BY date DESC
+
+// Select Inner join t1 - t2 with t1_id with particular id
+SELECT a.t1_id,a.t1_name,a.t1_intro,DATE_FORMAT(a.t1_date,'%W. %h:%m:%s %d.%m.%Y') as date,a.t1_status,a.t1_default FROM t1 as a INNER JOIN t2 as b ON a.t1_id = b.t1_id WHERE a.t1_id = 3 ORDER BY date DESC
+
+// DELETE TALBLE WHERE ID = ?
+
+DELETE FROM t1 WHERE t1_id = ?
+
+
+

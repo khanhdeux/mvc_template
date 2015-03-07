@@ -1,0 +1,25 @@
+// Hint type
+
+- For method parameters
+/**
+* @param MyClass $object
+**/
+public function my_function($object) {
+   $object-> // php autocomple works
+}
+
+- For variable
+public function my_function() {
+   /* @var $object MyClass */ 
+   $object = get_object();
+   $object-> // php autocomplete works
+}
+public function my_function() {
+    foreach($objects as /* @var $object MyClass */ $object) {
+        $object-> // php auto-complete works!
+    }
+}
+
+- For OOP variable
+/* @var $db PDO */
+private static $db;
