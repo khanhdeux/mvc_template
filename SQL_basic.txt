@@ -90,9 +90,16 @@ SELECT a.t1_id,a.t1_name,a.t1_intro,DATE_FORMAT(a.t1_date,'%W. %h:%m:%s %d.%m.%Y
 // Select Inner join t1 - t2 with t1_id with particular id
 SELECT a.t1_id,a.t1_name,a.t1_intro,DATE_FORMAT(a.t1_date,'%W. %h:%m:%s %d.%m.%Y') as date,a.t1_status,a.t1_default FROM t1 as a INNER JOIN t2 as b ON a.t1_id = b.t1_id WHERE a.t1_id = 3 ORDER BY date DESC
 
-// DELETE TALBLE WHERE ID = ?
+// DELETE TALE WHERE ID = ?
 
 DELETE FROM t1 WHERE t1_id = ?
+
+// UPDATE VALUE
+
+UPDATE t1 AS a SET a.t1_name= 't1_name_changed', a.t1_intro = 't1_intro_changed',a.t1_date = NOW() , a.t1_status = 'N', a.t1_default = 'Default_changed' WHERE a.t1_id= ?
+//Date : a.t1_date = '2038-01-19 03:14:07'
+//
+
 
 
 
