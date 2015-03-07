@@ -23,3 +23,16 @@ public function my_function() {
 - For OOP variable
 /* @var $db PDO */
 private static $db;
+
+- For prepare statement and store procedure
+
+$sql = "UPDATE users AS a SET a.username = ?, a.password = ? WHERE a.id= ?";
+
+$data = array(
+    $this->_userName,
+    md5($this->_password),
+    $id
+);
+
+$sth = $this->_db->prepare($sql);
+return $sth->execute($data);
