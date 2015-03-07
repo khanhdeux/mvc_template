@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 define ('DB_HOST',  'localhost');
 define ('DB_NAME',  'mvc_template');

@@ -17,29 +17,23 @@
         <?php include HOME .DS .'views'.  DS . 'includes' . DS . 'menu.inc.php'; ?>        
         <div class="container-fluid">                        
 
-        <?php 
-        if (isset($errors)) 
-        {
-            echo '<ul>';
-            foreach ($errors as $e)
-            {
-                echo '<li>' . $e . '</li>';
-            }
-            echo '</ul>';
-        }                 
-        ?>            
-            <form action="/mvc_template/login/submit" method="post">
-
-                <p>
-                    <label for="username">User name:</label>
-                    <input value="<?php if(isset($formData)) echo $formData['username']; ?>" type="text" id="username" name="username" />
-                </p>
-
-                <p>
+            <?php if(isset($errors)): ?>
+                <?php foreach($errors as $error): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <a href="#" class="alert-link"><?php echo $error ?></a>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>      
+        
+            <form action="/mvc_template/login/submit" method="post">                
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="username" class="form-control" id="username" name="username" placeholder="Enter username" value="<?php if(isset($formData)) echo $formData['username']; ?>">
+                </div>
+                <div class="form-group">
                     <label for="password">Password:</label>
-                    <input value="<?php if(isset($formData)) echo $formData['password']; ?>" type="password" id="password" name="password" />
-                </p>
-                
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" value="<?php if(isset($formData)) echo $formData['password']; ?>">
+                </div>                                
                 <input type="submit" name="loginFormSubmit" value="Send" />
             </form>
 
