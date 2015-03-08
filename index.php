@@ -11,9 +11,6 @@ require_once HOME . DS . 'utilities' . DS . 'bootstrap.php';
  
 function __autoload($class)
 {
-    echo '<PRE>';
-    var_dump($class);
-    echo '</PRE>';
     if (file_exists(HOME . DS . 'utilities' . DS . strtolower($class) . '.php'))
     {
         require_once HOME . DS . 'utilities' . DS . strtolower($class) . '.php';

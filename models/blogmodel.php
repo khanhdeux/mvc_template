@@ -24,14 +24,14 @@ class BlogModel extends Model {
     
     public function addCommentToPostID($comment,$id) {
         $sql = "INSERT INTO comments 
-                    (comment, post_id, user_id)
+                    (comment, post_id, user_id,comment_date)
                 VALUES 
-                    (?, ?, ?)";
+                    (?, ?, ?, NOW())";
 
         $data = array(
             $comment,
             $id,
-            $_SESSION['userID'],
+            $_SESSION['userID']
         );
 
         $sth = $this->_db->prepare($sql);
@@ -39,7 +39,7 @@ class BlogModel extends Model {
     }   
     
     public function getCommentsByPostID($id) {
-        $sql = "SELECT c.comment,u.username FROM comments AS c INNER JOIN users AS u ON c.user_id = u.id WHERE c.post_id = ?";
+        $sql = "SELECT c.comment,u.username FROM comments AS c INNER JOIN users AS u ON c.user_id = u.id WHERE c.post_id = ? ORDER BY c.comment_date DESC";
         $this->_setSql($sql);
         $posts = $this->getAll(array($id));
         if (empty($posts)) {
