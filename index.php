@@ -11,6 +11,9 @@ require_once HOME . DS . 'utilities' . DS . 'bootstrap.php';
  
 function __autoload($class)
 {
+    $parts = explode('\\', $class);
+    $class =  end($parts); 
+    
     if (file_exists(HOME . DS . 'utilities' . DS . strtolower($class) . '.php'))
     {
         require_once HOME . DS . 'utilities' . DS . strtolower($class) . '.php';
@@ -23,4 +26,5 @@ function __autoload($class)
     {
         require_once HOME . DS . 'controllers'  . DS . strtolower($class) . '.php';
     }
+    
 }

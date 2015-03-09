@@ -24,6 +24,7 @@ if (isset($_GET['load']))
  
 $modelName = $controller;
 $controller .= 'Controller';
+//$controller = 'Blog\\'. $controller; // namespace case
 $load = new $controller($modelName, $action);
  
 if (method_exists($load, $action))

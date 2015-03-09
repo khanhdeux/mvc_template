@@ -1,6 +1,6 @@
 <?php
-
-class BlogController extends Controller {
+//namespace blog; // namespace case
+class BlogController extends \Controller {
 
     public function __construct($model, $action) {
         parent::__construct($model, $action);
