@@ -60,3 +60,4 @@ git remote add origin https://github.com/khanhdeux/mvc_template.git
 git push -u origin master
 
 /**** ADD *****/
+/*** ADD MORE ***/
